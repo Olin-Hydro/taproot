@@ -1,9 +1,13 @@
 var express = require("express");
+const sequelize = require("./utils/database");
 var { graphqlHTTP } = require("express-graphql");
 
 const schema = require("./schema");
+const PhLog = require("./models/PhLog");
 
 var app = express();
+sequelize.sync();
+
 app.use(
   "/graphql",
   graphqlHTTP({
