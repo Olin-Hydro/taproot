@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const sequelize = require("../utils/database");
+const { GraphQLID, GraphQLString, GraphQLObjectType } = require("graphql");
 
 const PhLog = sequelize.define("ph_log", {
   id: {
@@ -21,4 +22,30 @@ const PhLog = sequelize.define("ph_log", {
     allowNull: false,
   },
 });
-module.exports = PhLog;
+
+const ph = new GraphQLObjectType({
+  name: "ph",
+  fields: {
+    id: {
+      type: GraphQLID,
+      description: "Unique id of log",
+    },
+    ph: {
+      type: GraphQLString,
+      description: "Sensor data",
+    },
+    createdAt: {
+      type: GraphQLString,
+      description: "Date and time when log was created",
+    },
+    updatedAt: {
+      type: GraphQLString,
+      description: "Date and time when log was last updated",
+    },
+  },
+});
+
+module.exports = {
+  PhLog: PhLog,
+  ph: ph,
+};

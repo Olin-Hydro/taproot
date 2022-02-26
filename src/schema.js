@@ -1,51 +1,21 @@
 const {
   GraphQLID,
-  GraphQLInt,
-  GraphQLBoolean,
+  GraphQLNonNull,
   GraphQLString,
   GraphQLList,
   GraphQLObjectType,
   GraphQLInputObjectType,
   GraphQLSchema,
+  GraphQLEnumType,
 } = require("graphql");
 
-const Log = new GraphQLObjectType({
-  name: "Log",
-  fields: {
-    id: {
-      type: GraphQLID,
-      description: "Unique id of log",
-    },
-    type: {
-      type: GraphQLString,
-      description: "Type of log",
-    },
-    data: {
-      type: GraphQLString,
-      description: "Sensor data",
-    },
-  },
-});
+const resolvers = require("./resolvers");
+const { ph } = require("./models/PhLog");
 
-const ph = new GraphQLObjectType({
-  name: "ph",
-  fields: {
-    id: {
-      type: GraphQLID,
-      description: "Unique id of log",
-    },
-    type: {
-      type: GraphQLString,
-      description: "Type of log",
-    },
-    data: {
-      type: GraphQLString,
-      description: "Sensor data",
-    },
-    timestamp: {
-      type: GraphQLString,
-      description: "Date and time when log was created",
-    },
+const logTypes = new GraphQLEnumType({
+  name: "logTypes",
+  values: {
+    PH: { value: "ph" },
   },
 });
 
@@ -53,7 +23,7 @@ const LogInput = new GraphQLInputObjectType({
   name: "LogInput",
   fields: {
     type: {
-      type: GraphQLString,
+      type: logTypes,
       description: "Type of log",
     },
     data: {
@@ -66,29 +36,9 @@ const LogInput = new GraphQLInputObjectType({
 const TimeStamp = new GraphQLInputObjectType({
   name: "TimeStamp",
   fields: {
-    year: {
-      type: GraphQLInt,
-      description: "Year",
-    },
-    month: {
-      type: GraphQLInt,
-      description: "Year",
-    },
-    day: {
-      type: GraphQLInt,
-      description: "Minute",
-    },
-    hour: {
-      type: GraphQLInt,
-      description: "Hour",
-    },
-    minute: {
-      type: GraphQLInt,
-      description: "Minute",
-    },
-    second: {
-      type: GraphQLInt,
-      description: "Second",
+    datetime: {
+      type: new GraphQLNonNull(GraphQLString),
+      description: "UTC Datetime in ISO format: YYYY-MM-DD HH:MM:SS",
     },
   },
 });
@@ -100,17 +50,9 @@ const Query = new GraphQLObjectType({
       type: new GraphQLList(ph),
       description: "List of ph logs",
       args: {
-        logId: {
+        id: {
           type: GraphQLID,
           description: "Id of a specific ph log",
-        },
-        all: {
-          type: GraphQLBoolean,
-          description: "Get all the logs?",
-        },
-        last: {
-          type: GraphQLInt,
-          description: "Get the lastest [last] number of ph logs",
         },
         startTime: {
           type: TimeStamp,
@@ -121,9 +63,23 @@ const Query = new GraphQLObjectType({
           description: "Newest datetime of log in interval to fetch",
         },
       },
-      resolve: (root, args, context) => {
-        // TODO input api
-        return [1.1];
+      resolve: async (root, args, context) => {
+        return await resolvers.getPhLogs(args);
+      },
+    },
+  },
+});
+
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    createPhLog: {
+      type: ph,
+      args: {
+        input: { type: LogInput },
+      },
+      resolve: async (root, args, context) => {
+        return await resolvers.createLog(args.input);
       },
     },
   },
@@ -131,4 +87,5 @@ const Query = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
   query: Query,
+  mutation: Mutation,
 });
