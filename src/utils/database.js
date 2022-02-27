@@ -5,6 +5,11 @@ const sequelize = new Sequelize(
   process.env.DB_PASSWORD,
   {
     dialect: "mysql",
+    dialectOptions: {
+      dateStrings: true,
+      typeCast: true,
+    },
+    timezone: "-05:00",
     host: process.env.DB_HOST,
   }
 );
