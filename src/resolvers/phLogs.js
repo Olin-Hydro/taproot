@@ -1,5 +1,5 @@
 const { Op } = require("sequelize");
-const { PhLog } = require("./models/PhLog");
+const { PhLog } = require("../models/PhLog");
 
 let getPhLogs = async function (args) {
   if (args.id != null) {

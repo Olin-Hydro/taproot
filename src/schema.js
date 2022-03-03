@@ -6,18 +6,12 @@ const {
   GraphQLObjectType,
   GraphQLInputObjectType,
   GraphQLSchema,
-  GraphQLEnumType,
 } = require("graphql");
 
-const resolvers = require("./resolvers");
+const phResolvers = require("./resolvers/phLogs");
+const ecResolvers = require("./resolvers/ecLogs");
 const { ph } = require("./models/PhLog");
-
-const logTypes = new GraphQLEnumType({
-  name: "logTypes",
-  values: {
-    PH: { value: "ph" },
-  },
-});
+const { ec } = require("./models/EcLog");
 
 const LogInput = new GraphQLInputObjectType({
   name: "LogInput",
@@ -60,7 +54,28 @@ const Query = new GraphQLObjectType({
         },
       },
       resolve: async (root, args, context) => {
-        return await resolvers.getPhLogs(args);
+        return await phResolvers.getPhLogs(args);
+      },
+    },
+    ecLogs: {
+      type: new GraphQLList(ec),
+      description: "List of ec logs",
+      args: {
+        id: {
+          type: GraphQLID,
+          description: "Id of a specific ec log",
+        },
+        startTime: {
+          type: TimeStamp,
+          description: "Oldest datetime of log in interval to fetch",
+        },
+        endTime: {
+          type: TimeStamp,
+          description: "Newest datetime of log in interval to fetch",
+        },
+      },
+      resolve: async (root, args, context) => {
+        return await ecResolvers.getEcLogs(args);
       },
     },
   },
@@ -75,7 +90,16 @@ const Mutation = new GraphQLObjectType({
         input: { type: LogInput },
       },
       resolve: async (root, args, context) => {
-        return await resolvers.createPhLog(args.input);
+        return await phResolvers.createPhLog(args.input);
+      },
+    },
+    createEcLog: {
+      type: ec,
+      args: {
+        input: { type: LogInput },
+      },
+      resolve: async (root, args, context) => {
+        return await ecResolvers.createEcLog(args.input);
       },
     },
   },
