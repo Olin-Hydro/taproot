@@ -2,7 +2,7 @@ var express = require("express");
 var { graphqlHTTP } = require("express-graphql");
 
 const schema = require("./schema");
-const sequelize = require("./utils/database");
+const sequelize = require("./database");
 
 var app = express();
 sequelize.sync();

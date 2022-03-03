@@ -17,15 +17,11 @@ let getPhLogs = async function (args) {
   return await PhLog.findAll();
 };
 
-let createLog = async function ({ type, data }) {
-  switch (type) {
-    case "ph":
-      return await PhLog.create({ ph: data });
-    default:
-  }
+let createPhLog = async function ({ data }) {
+  return await PhLog.create({ ph: data });
 };
 
 module.exports = {
   getPhLogs: getPhLogs,
-  createLog: createLog,
+  createPhLog: createPhLog,
 };

@@ -1,9 +1,9 @@
 const server = require("../src/server");
-const sequelize = require("../src/utils/database");
+const sequelize = require("../src/database");
 const supertest = require("supertest");
 
 const request = supertest(server);
-describe("ph logs", () => {
+describe("ph logs", () => { 
   test("Get all ph logs", async () => {
     const res = await request.post("/graphql").send({
       query: "{ phLogs{ id ph createdAt updatedAt } }",

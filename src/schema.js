@@ -22,10 +22,6 @@ const logTypes = new GraphQLEnumType({
 const LogInput = new GraphQLInputObjectType({
   name: "LogInput",
   fields: {
-    type: {
-      type: logTypes,
-      description: "Type of log",
-    },
     data: {
       type: GraphQLString,
       description: "Log sensor data",
@@ -79,7 +75,7 @@ const Mutation = new GraphQLObjectType({
         input: { type: LogInput },
       },
       resolve: async (root, args, context) => {
-        return await resolvers.createLog(args.input);
+        return await resolvers.createPhLog(args.input);
       },
     },
   },
