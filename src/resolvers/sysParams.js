@@ -11,12 +11,16 @@ let createSysParams = async function (data) {
   return await SysParams.create({
     phSenseInterval: data.phSenseInterval,
     phTaskInterval: data.phTaskInterval,
+    phTaskLength: data.phTaskLength,
     ecSenseInterval: data.ecSenseInterval,
     ecTaskInterval: data.ecTaskInterval,
+    ecTaskLength: data.ecTaskLength,
     tempSenseInterval: data.tempSenseInterval,
     tempTaskInterval: data.tempTaskInterval,
+    tempTaskLength: data.tempTaskLength,
     waterSenseInterval: data.waterSenseInterval,
     waterTaskInterval: data.waterTaskInterval,
+    waterTaskLength: data.waterTaskLength,
   });
 };
 
@@ -35,12 +39,16 @@ let updateSysParams = async function (id, data) {
     {
       phSenseInterval: data.phSenseInterval,
       phTaskInterval: data.phTaskInterval,
+      phTaskLength: data.phTaskLength,
       ecSenseInterval: data.ecSenseInterval,
       ecTaskInterval: data.ecTaskInterval,
+      ecTaskLength: data.ecTaskLength,
       tempSenseInterval: data.tempSenseInterval,
       tempTaskInterval: data.tempTaskInterval,
+      tempTaskLength: data.tempTaskLength,
       waterSenseInterval: data.waterSenseInterval,
       waterTaskInterval: data.waterTaskInterval,
+      waterTaskLength: data.waterTaskLength,
     },
     {
       where: {

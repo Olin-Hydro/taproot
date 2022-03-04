@@ -22,11 +22,19 @@ const SysParams = sequelize.define("sys_params", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  phTaskLength: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
   ecSenseInterval: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
   ecTaskInterval: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  ecTaskLength: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -38,11 +46,19 @@ const SysParams = sequelize.define("sys_params", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  tempTaskLength: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
   waterSenseInterval: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
   waterTaskInterval: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  waterTaskLength: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -71,6 +87,10 @@ const sys = new GraphQLObjectType({
       type: GraphQLInt,
       description: "Interval in seconds to adjust ph",
     },
+    phTaskLength: {
+      type: GraphQLInt,
+      description: "Time in seconds to dispense",
+    },
     ecSenseInterval: {
       type: GraphQLInt,
       description: "Interval in seconds to take sensor readings",
@@ -78,6 +98,10 @@ const sys = new GraphQLObjectType({
     ecTaskInterval: {
       type: GraphQLInt,
       description: "Interval in seconds to adjust ec",
+    },
+    ecTaskLength: {
+      type: GraphQLInt,
+      description: "Time in seconds to dispense",
     },
     tempSenseInterval: {
       type: GraphQLInt,
@@ -87,6 +111,10 @@ const sys = new GraphQLObjectType({
       type: GraphQLInt,
       description: "Interval in seconds to adjust temp",
     },
+    tempTaskLength: {
+      type: GraphQLInt,
+      description: "Time in seconds to dispense",
+    },
     waterSenseInterval: {
       type: GraphQLInt,
       description: "Interval in seconds to take sensor readings",
@@ -94,6 +122,10 @@ const sys = new GraphQLObjectType({
     waterTaskInterval: {
       type: GraphQLInt,
       description: "Interval in seconds to adjust water level",
+    },
+    waterTaskLength: {
+      type: GraphQLInt,
+      description: "Time in seconds to dispense",
     },
     createdAt: {
       type: GraphQLString,

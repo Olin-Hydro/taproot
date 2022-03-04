@@ -56,6 +56,10 @@ const SysParamInput = new GraphQLInputObjectType({
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to adjust ph",
     },
+    phTaskLength: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Time in seconds to dispense",
+    },
     ecSenseInterval: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to take sensor readings",
@@ -63,6 +67,10 @@ const SysParamInput = new GraphQLInputObjectType({
     ecTaskInterval: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to adjust ec",
+    },
+    ecTaskLength: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Time in seconds to dispense",
     },
     tempSenseInterval: {
       type: new GraphQLNonNull(GraphQLInt),
@@ -72,6 +80,10 @@ const SysParamInput = new GraphQLInputObjectType({
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to adjust temp",
     },
+    tempTaskLength: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Time in seconds to dispense",
+    },
     waterSenseInterval: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to take sensor readings",
@@ -79,6 +91,10 @@ const SysParamInput = new GraphQLInputObjectType({
     waterTaskInterval: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to adjust water level",
+    },
+    waterTaskLength: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Time in seconds to dispense",
     },
   },
 });
