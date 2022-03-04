@@ -10,8 +10,10 @@ const {
 
 const phResolvers = require("./resolvers/phLogs");
 const ecResolvers = require("./resolvers/ecLogs");
+const tempResolvers = require("./resolvers/tempLogs");
 const { ph } = require("./models/PhLog");
 const { ec } = require("./models/EcLog");
+const { temp } = require("./models/TempLog");
 
 const LogInput = new GraphQLInputObjectType({
   name: "LogInput",
@@ -78,6 +80,27 @@ const Query = new GraphQLObjectType({
         return await ecResolvers.getEcLogs(args);
       },
     },
+    tempLogs: {
+      type: new GraphQLList(temp),
+      description: "List of temp logs",
+      args: {
+        id: {
+          type: GraphQLID,
+          description: "Id of a specific temp log",
+        },
+        startTime: {
+          type: TimeStamp,
+          description: "Oldest datetime of log in interval to fetch",
+        },
+        endTime: {
+          type: TimeStamp,
+          description: "Newest datetime of log in interval to fetch",
+        },
+      },
+      resolve: async (root, args, context) => {
+        return await tempResolvers.getTempLogs(args);
+      },
+    },
   },
 });
 
@@ -100,6 +123,15 @@ const Mutation = new GraphQLObjectType({
       },
       resolve: async (root, args, context) => {
         return await ecResolvers.createEcLog(args.input);
+      },
+    },
+    createTempLog: {
+      type: temp,
+      args: {
+        input: { type: LogInput },
+      },
+      resolve: async (root, args, context) => {
+        return await tempResolvers.createTempLog(args.input);
       },
     },
   },
