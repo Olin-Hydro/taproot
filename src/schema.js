@@ -7,24 +7,25 @@ const {
   GraphQLInputObjectType,
   GraphQLSchema,
   GraphQLInt,
+  GraphQLFloat,
 } = require("graphql");
 
-const phResolvers = require("./resolvers/phLogs");
-const ecResolvers = require("./resolvers/ecLogs");
-const tempResolvers = require("./resolvers/tempLogs");
 const sysResolvers = require("./resolvers/sysParams");
 const taskResolvers = require("./resolvers/taskLogs");
-const { ph } = require("./models/PhLog");
-const { ec } = require("./models/EcLog");
-const { temp } = require("./models/TempLog");
+const sensorResolvers = require("./resolvers/sensorLogs");
 const { sys } = require("./models/SysParams");
 const { task } = require("./models/TaskLog");
+const { sensor } = require("./models/SensorLog");
 
-const LogInput = new GraphQLInputObjectType({
-  name: "LogInput",
+const SensorInput = new GraphQLInputObjectType({
+  name: "SensorInput",
   fields: {
-    data: {
+    type: {
       type: GraphQLString,
+      description: "Log type",
+    },
+    data: {
+      type: GraphQLFloat,
       description: "Log sensor data",
     },
   },
@@ -95,34 +96,17 @@ const TimeStamp = new GraphQLInputObjectType({
 const Query = new GraphQLObjectType({
   name: "Query",
   fields: {
-    phLogs: {
-      type: new GraphQLList(ph),
-      description: "List of ph logs",
+    sensorLogs: {
+      type: new GraphQLList(sensor),
+      description: "List of sensor logs",
       args: {
         id: {
           type: GraphQLID,
           description: "Id of a specific ph log",
         },
-        startTime: {
-          type: TimeStamp,
-          description: "Oldest datetime of log in interval to fetch",
-        },
-        endTime: {
-          type: TimeStamp,
-          description: "Newest datetime of log in interval to fetch",
-        },
-      },
-      resolve: async (root, args, context) => {
-        return await phResolvers.getPhLogs(args);
-      },
-    },
-    ecLogs: {
-      type: new GraphQLList(ec),
-      description: "List of ec logs",
-      args: {
-        id: {
-          type: GraphQLID,
-          description: "Id of a specific ec log",
+        type: {
+          type: GraphQLString,
+          description: "Type of sensor log",
         },
         startTime: {
           type: TimeStamp,
@@ -134,28 +118,7 @@ const Query = new GraphQLObjectType({
         },
       },
       resolve: async (root, args, context) => {
-        return await ecResolvers.getEcLogs(args);
-      },
-    },
-    tempLogs: {
-      type: new GraphQLList(temp),
-      description: "List of temp logs",
-      args: {
-        id: {
-          type: GraphQLID,
-          description: "Id of a specific temp log",
-        },
-        startTime: {
-          type: TimeStamp,
-          description: "Oldest datetime of log in interval to fetch",
-        },
-        endTime: {
-          type: TimeStamp,
-          description: "Newest datetime of log in interval to fetch",
-        },
-      },
-      resolve: async (root, args, context) => {
-        return await tempResolvers.getTempLogs(args);
+        return await sensorResolvers.getSensorLogs(args);
       },
     },
     sysParams: {
@@ -202,31 +165,13 @@ const Query = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
   name: "Mutation",
   fields: {
-    createPhLog: {
-      type: ph,
+    createSensorLog: {
+      type: sensor,
       args: {
-        input: { type: LogInput },
+        input: { type: SensorInput },
       },
       resolve: async (root, args, context) => {
-        return await phResolvers.createPhLog(args.input);
-      },
-    },
-    createEcLog: {
-      type: ec,
-      args: {
-        input: { type: LogInput },
-      },
-      resolve: async (root, args, context) => {
-        return await ecResolvers.createEcLog(args.input);
-      },
-    },
-    createTempLog: {
-      type: temp,
-      args: {
-        input: { type: LogInput },
-      },
-      resolve: async (root, args, context) => {
-        return await tempResolvers.createTempLog(args.input);
+        return await sensorResolvers.createSensorLog(args.input);
       },
     },
     createSystem: {

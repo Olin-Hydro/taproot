@@ -7,14 +7,18 @@ const {
   GraphQLFloat,
 } = require("graphql");
 
-const EcLog = sequelize.define("ec_log", {
+const SensorLog = sequelize.define("sensor_log", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
   },
-  ec: {
+  type: {
+    type: Sequelize.STRING,
+    allowNull: false,
+  },
+  data: {
     type: Sequelize.FLOAT,
     allowNull: false,
   },
@@ -28,14 +32,18 @@ const EcLog = sequelize.define("ec_log", {
   },
 });
 
-const ec = new GraphQLObjectType({
-  name: "ec",
+const sensor = new GraphQLObjectType({
+  name: "sensor",
   fields: {
     id: {
       type: GraphQLID,
       description: "Unique id of log",
     },
-    ec: {
+    type: {
+      type: GraphQLString,
+      description: "Type of sensor log",
+    },
+    data: {
       type: GraphQLFloat,
       description: "Sensor data",
     },
@@ -51,6 +59,6 @@ const ec = new GraphQLObjectType({
 });
 
 module.exports = {
-  EcLog: EcLog,
-  ec: ec,
+  SensorLog: SensorLog,
+  sensor: sensor,
 };
