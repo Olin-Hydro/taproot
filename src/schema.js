@@ -60,6 +60,10 @@ const SysParamInput = new GraphQLInputObjectType({
       type: new GraphQLNonNull(GraphQLInt),
       description: "Time in seconds to dispense",
     },
+    phMax: {
+      type: new GraphQLNonNull(GraphQLFloat),
+      description: "Maximum allowable ph",
+    },
     ecSenseInterval: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Interval in seconds to take sensor readings",
@@ -71,6 +75,10 @@ const SysParamInput = new GraphQLInputObjectType({
     ecTaskLength: {
       type: new GraphQLNonNull(GraphQLInt),
       description: "Time in seconds to dispense",
+    },
+    ecMin: {
+      type: new GraphQLNonNull(GraphQLFloat),
+      description: "Minimum allowable ec",
     },
     tempSenseInterval: {
       type: new GraphQLNonNull(GraphQLInt),

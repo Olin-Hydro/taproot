@@ -1,0 +1,127 @@
+{
+  "system": {
+    "data": {
+      "sysParams": [
+        {
+          "phTaskLength": 5,
+          "phTaskInterval": 1200,
+          "phSenseInterval": 300,
+          "phMax": 6.9,
+          "ecTaskLength": 5,
+          "ecTaskInterval": 1200,
+          "ecSenseInterval": 300,
+          "ecMin": 1000,
+          "tempTaskLength": 5,
+          "tempTaskInterval": 1200,
+          "tempSenseInterval": 300,
+          "waterTaskLength": 5,
+          "waterTaskInterval": 1200,
+          "waterSenseInterval": 300
+        }
+      ]
+    }
+  },
+  "sensor": {
+    "data": {
+      "sensorLogs": [
+        {
+          "id": "1",
+          "type": "ph",
+          "data": 12.93,
+          "updatedAt": "2022-03-04 09:05:47",
+          "createdAt": "2022-03-04 09:05:47"
+        },
+        {
+          "id": "2",
+          "type": "ec",
+          "data": 700.3,
+          "updatedAt": "2022-03-04 09:06:25",
+          "createdAt": "2022-03-04 09:06:25"
+        },
+        {
+          "id": "3",
+          "type": "temp",
+          "data": 21,
+          "updatedAt": "2022-03-04 09:06:35",
+          "createdAt": "2022-03-04 09:06:35"
+        },
+        {
+          "id": "4",
+          "type": "temp",
+          "data": 22,
+          "updatedAt": "2022-03-04 09:06:46",
+          "createdAt": "2022-03-04 09:06:46"
+        },
+        {
+          "id": "5",
+          "type": "ec",
+          "data": 800.3,
+          "updatedAt": "2022-03-04 09:10:26",
+          "createdAt": "2022-03-04 09:10:26"
+        },
+        {
+          "id": "6",
+          "type": "ph",
+          "data": 8.12,
+          "updatedAt": "2022-03-04 09:10:37",
+          "createdAt": "2022-03-04 09:10:37"
+        },
+        {
+          "id": "7",
+          "type": "temp",
+          "data": 22.3,
+          "updatedAt": "2022-03-04 09:10:58",
+          "createdAt": "2022-03-04 09:10:58"
+        },
+        {
+          "id": "8",
+          "type": "ph",
+          "data": 7.1,
+          "updatedAt": "2022-03-04 09:13:35",
+          "createdAt": "2022-03-04 09:13:35"
+        },
+        {
+          "id": "9",
+          "type": "ph",
+          "data": 7.5,
+          "updatedAt": "2022-03-04 09:17:39",
+          "createdAt": "2022-03-04 09:17:39"
+        }
+      ]
+    }
+  },
+  "tasks": {
+    "data": {
+      "taskLogs": [
+        {
+          "id": "1",
+          "data": "0",
+          "type": "ph_down",
+          "updatedAt": "2022-03-04 08:48:06",
+          "createdAt": "2022-03-04 08:48:06"
+        },
+        {
+          "id": "2",
+          "data": "1",
+          "type": "ph_down",
+          "updatedAt": "2022-03-04 08:48:15",
+          "createdAt": "2022-03-04 08:48:15"
+        },
+        {
+          "id": "3",
+          "data": "1",
+          "type": "ec",
+          "updatedAt": "2022-03-04 08:48:24",
+          "createdAt": "2022-03-04 08:48:24"
+        },
+        {
+          "id": "4",
+          "data": "0",
+          "type": "ec",
+          "updatedAt": "2022-03-04 08:48:27",
+          "createdAt": "2022-03-04 08:48:27"
+        }
+      ]
+    }
+  }
+}

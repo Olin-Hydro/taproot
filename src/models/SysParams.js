@@ -5,6 +5,7 @@ const {
   GraphQLString,
   GraphQLObjectType,
   GraphQLInt,
+  GraphQLFloat,
 } = require("graphql");
 
 const SysParams = sequelize.define("sys_params", {
@@ -26,6 +27,10 @@ const SysParams = sequelize.define("sys_params", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  phMax: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+  },
   ecSenseInterval: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -36,6 +41,10 @@ const SysParams = sequelize.define("sys_params", {
   },
   ecTaskLength: {
     type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  ecMin: {
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
   tempSenseInterval: {
@@ -91,6 +100,10 @@ const sys = new GraphQLObjectType({
       type: GraphQLInt,
       description: "Time in seconds to dispense",
     },
+    phMax: {
+      type: GraphQLFloat,
+      description: "Maximum ph allowable",
+    },
     ecSenseInterval: {
       type: GraphQLInt,
       description: "Interval in seconds to take sensor readings",
@@ -102,6 +115,10 @@ const sys = new GraphQLObjectType({
     ecTaskLength: {
       type: GraphQLInt,
       description: "Time in seconds to dispense",
+    },
+    ecMin: {
+      type: GraphQLFloat,
+      description: "Minimum ec allowable",
     },
     tempSenseInterval: {
       type: GraphQLInt,

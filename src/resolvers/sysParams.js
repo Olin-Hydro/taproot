@@ -2,7 +2,7 @@ const { SysParams } = require("../models/SysParams");
 
 let getSysParams = async function (args) {
   if (args.id != null) {
-    return await [SysParams.findByPk(args.id)];
+    return [await SysParams.findByPk(args.id)];
   }
   return await SysParams.findAll();
 };
@@ -12,9 +12,11 @@ let createSysParams = async function (data) {
     phSenseInterval: data.phSenseInterval,
     phTaskInterval: data.phTaskInterval,
     phTaskLength: data.phTaskLength,
+    phMax: data.phMax,
     ecSenseInterval: data.ecSenseInterval,
     ecTaskInterval: data.ecTaskInterval,
     ecTaskLength: data.ecTaskLength,
+    ecMin: data.ecMin,
     tempSenseInterval: data.tempSenseInterval,
     tempTaskInterval: data.tempTaskInterval,
     tempTaskLength: data.tempTaskLength,
@@ -40,9 +42,11 @@ let updateSysParams = async function (id, data) {
       phSenseInterval: data.phSenseInterval,
       phTaskInterval: data.phTaskInterval,
       phTaskLength: data.phTaskLength,
+      phMax: phMax,
       ecSenseInterval: data.ecSenseInterval,
       ecTaskInterval: data.ecTaskInterval,
       ecTaskLength: data.ecTaskLength,
+      ecMin: data.ecMin,
       tempSenseInterval: data.tempSenseInterval,
       tempTaskInterval: data.tempTaskInterval,
       tempTaskLength: data.tempTaskLength,
