@@ -13,10 +13,12 @@ const phResolvers = require("./resolvers/phLogs");
 const ecResolvers = require("./resolvers/ecLogs");
 const tempResolvers = require("./resolvers/tempLogs");
 const sysResolvers = require("./resolvers/sysParams");
+const taskResolvers = require("./resolvers/taskLogs");
 const { ph } = require("./models/PhLog");
 const { ec } = require("./models/EcLog");
 const { temp } = require("./models/TempLog");
 const { sys } = require("./models/SysParams");
+const { task } = require("./models/TaskLog");
 
 const LogInput = new GraphQLInputObjectType({
   name: "LogInput",
@@ -24,6 +26,20 @@ const LogInput = new GraphQLInputObjectType({
     data: {
       type: GraphQLString,
       description: "Log sensor data",
+    },
+  },
+});
+
+const TaskInput = new GraphQLInputObjectType({
+  name: "TaskInput",
+  fields: {
+    type: {
+      type: GraphQLString,
+      description: "Task type",
+    },
+    data: {
+      type: GraphQLString,
+      description: "Task data",
     },
   },
 });
@@ -155,6 +171,31 @@ const Query = new GraphQLObjectType({
         return await sysResolvers.getSysParams(args);
       },
     },
+    taskLogs: {
+      type: new GraphQLList(task),
+      description: "List of task logs",
+      args: {
+        id: {
+          type: GraphQLID,
+          description: "Id of a specific system",
+        },
+        type: {
+          type: GraphQLString,
+          description: "Type of task log",
+        },
+        startTime: {
+          type: TimeStamp,
+          description: "Oldest datetime of log in interval to fetch",
+        },
+        endTime: {
+          type: TimeStamp,
+          description: "Newest datetime of log in interval to fetch",
+        },
+      },
+      resolve: async (root, args, context) => {
+        return await taskResolvers.getTaskLogs(args);
+      },
+    },
   },
 });
 
@@ -214,6 +255,15 @@ const Mutation = new GraphQLObjectType({
       },
       resolve: async (root, args, context) => {
         return await sysResolvers.updateSysParams(args.id, args.input);
+      },
+    },
+    createTaskLog: {
+      type: task,
+      args: {
+        input: { type: TaskInput },
+      },
+      resolve: async (root, args, context) => {
+        return await taskResolvers.createTaskLog(args.input);
       },
     },
   },
