@@ -6,14 +6,17 @@ const {
   GraphQLObjectType,
   GraphQLInputObjectType,
   GraphQLSchema,
+  GraphQLInt,
 } = require("graphql");
 
 const phResolvers = require("./resolvers/phLogs");
 const ecResolvers = require("./resolvers/ecLogs");
 const tempResolvers = require("./resolvers/tempLogs");
+const sysResolvers = require("./resolvers/sysParams");
 const { ph } = require("./models/PhLog");
 const { ec } = require("./models/EcLog");
 const { temp } = require("./models/TempLog");
+const { sys } = require("./models/SysParams");
 
 const LogInput = new GraphQLInputObjectType({
   name: "LogInput",
@@ -21,6 +24,44 @@ const LogInput = new GraphQLInputObjectType({
     data: {
       type: GraphQLString,
       description: "Log sensor data",
+    },
+  },
+});
+
+const SysParamInput = new GraphQLInputObjectType({
+  name: "SysParamInput",
+  fields: {
+    phSenseInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to take sensor readings",
+    },
+    phTaskInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to adjust ph",
+    },
+    ecSenseInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to take sensor readings",
+    },
+    ecTaskInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to adjust ec",
+    },
+    tempSenseInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to take sensor readings",
+    },
+    tempTaskInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to adjust temp",
+    },
+    waterSenseInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to take sensor readings",
+    },
+    waterTaskInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to adjust water level",
     },
   },
 });
@@ -101,6 +142,19 @@ const Query = new GraphQLObjectType({
         return await tempResolvers.getTempLogs(args);
       },
     },
+    sysParams: {
+      type: new GraphQLList(sys),
+      description: "List of systems and their parameters",
+      args: {
+        id: {
+          type: GraphQLID,
+          description: "Id of a specific system",
+        },
+      },
+      resolve: async (root, args, context) => {
+        return await sysResolvers.getSysParams(args);
+      },
+    },
   },
 });
 
@@ -132,6 +186,34 @@ const Mutation = new GraphQLObjectType({
       },
       resolve: async (root, args, context) => {
         return await tempResolvers.createTempLog(args.input);
+      },
+    },
+    createSystem: {
+      type: sys,
+      args: {
+        input: { type: SysParamInput },
+      },
+      resolve: async (root, args, context) => {
+        return await sysResolvers.createSysParams(args.input);
+      },
+    },
+    deleteSystem: {
+      type: sys,
+      args: {
+        id: { type: GraphQLID },
+      },
+      resolve: async (root, args, context) => {
+        return await sysResolvers.deleteSysParams(args.id);
+      },
+    },
+    updateSystem: {
+      type: sys,
+      args: {
+        id: { type: GraphQLID },
+        input: { type: SysParamInput },
+      },
+      resolve: async (root, args, context) => {
+        return await sysResolvers.updateSysParams(args.id, args.input);
       },
     },
   },
