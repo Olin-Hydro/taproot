@@ -42,7 +42,7 @@ let updateSysParams = async function (id, data) {
       phSenseInterval: data.phSenseInterval,
       phTaskInterval: data.phTaskInterval,
       phTaskLength: data.phTaskLength,
-      phMax: phMax,
+      phMax: data.phMax,
       ecSenseInterval: data.ecSenseInterval,
       ecTaskInterval: data.ecTaskInterval,
       ecTaskLength: data.ecTaskLength,
