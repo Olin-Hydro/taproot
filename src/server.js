@@ -1,5 +1,6 @@
 var express = require("express");
 var { graphqlHTTP } = require("express-graphql");
+const cors = require("cors");
 
 const schema = require("./schema");
 const sequelize = require("./database");
@@ -7,6 +8,7 @@ const sequelize = require("./database");
 var app = express();
 sequelize.sync();
 
+app.use(cors());
 app.use(
   "/graphql",
   graphqlHTTP({
