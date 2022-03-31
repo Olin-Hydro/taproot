@@ -4,17 +4,19 @@ services:
     image: mysql:8
     volumes:
       - hydro-mysql-data:/var/lib/mysql
+    env_file: ./.env
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_DATABASE: $MYSQL_DB
   app:
     image: node:16-alpine
     command: sh -c "npm install && npm start"
     ports:
-      - $PORT:$PORT
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     working_dir: /src
     volumes:
       - ./:/src
+    env_file: ./.env
     environment:
       MYSQL_HOST: $MYSQL_HOST
       MYSQL_USER: $MYSQL_USER

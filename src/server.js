@@ -18,7 +18,9 @@ app.use(
   })
 );
 
-const server = app.listen(4000);
-console.log("Running a GraphQL API server at http://localhost:4000/graphql");
+const server = app.listen(process.env.NODE_DOCKER_PORT);
+console.log(
+  `Running a GraphQL API server at http://localhost:${process.env.NODE_DOCKER_PORT}/graphql`
+);
 
 module.exports = server;
