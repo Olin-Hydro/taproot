@@ -1,0 +1,26 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:8
+    volumes:
+      - hydro-mysql-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+  app:
+    image: node:16-alpine
+    command: sh -c "npm install && npm start"
+    ports:
+      - $PORT:$PORT
+    working_dir: /src
+    volumes:
+      - ./:/src
+    environment:
+      MYSQL_HOST: $MYSQL_HOST
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_DB: $MYSQL_DB
+    depends_on:
+      - mysql
+volumes:
+  hydro-mysql-data:
