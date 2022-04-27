@@ -71,6 +71,14 @@ const SysParams = sequelize.define("sys_params", {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+  lightTaskInterval: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  lightTaskLength: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
   createdAt: {
     type: Sequelize.DATE,
     allowNull: false,
@@ -143,6 +151,14 @@ const sys = new GraphQLObjectType({
     waterTaskLength: {
       type: GraphQLInt,
       description: "Time in seconds to dispense",
+    },
+    lightTaskInterval: {
+      type: GraphQLInt,
+      description: "Interval in seconds to turn lights on",
+    },
+    lightTaskLength: {
+      type: GraphQLInt,
+      description: "Time in seconds for lights to be on",
     },
     createdAt: {
       type: GraphQLString,

@@ -104,6 +104,14 @@ const SysParamInput = new GraphQLInputObjectType({
       type: new GraphQLNonNull(GraphQLInt),
       description: "Time in seconds to dispense",
     },
+    lightTaskInterval: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Interval in seconds to turn light on",
+    },
+    lightTaskLength: {
+      type: new GraphQLNonNull(GraphQLInt),
+      description: "Time in seconds to turn light on",
+    },
   },
 });
 

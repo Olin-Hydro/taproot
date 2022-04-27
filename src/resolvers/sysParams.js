@@ -27,7 +27,7 @@ let createSysParams = async function (data) {
 };
 
 let deleteSysParams = async function (id) {
-  await SysParams.findByPk(id);
+  deletedSys = await SysParams.findByPk(id);
   await SysParams.destroy({
     where: {
       id: id,
@@ -53,6 +53,8 @@ let updateSysParams = async function (id, data) {
       waterSenseInterval: data.waterSenseInterval,
       waterTaskInterval: data.waterTaskInterval,
       waterTaskLength: data.waterTaskLength,
+      lightTaskInterval: data.lightTaskInterval,
+      lightTaskLength: data.lightTaskLength,
     },
     {
       where: {
