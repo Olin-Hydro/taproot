@@ -23,6 +23,8 @@ let createSysParams = async function (data) {
     waterSenseInterval: data.waterSenseInterval,
     waterTaskInterval: data.waterTaskInterval,
     waterTaskLength: data.waterTaskLength,
+    lightTaskInterval: data.lightTaskInterval,
+    lightTaskLength: data.lightTaskLength,
   });
 };
 
