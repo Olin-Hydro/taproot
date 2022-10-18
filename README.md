@@ -12,8 +12,10 @@ MYSQL_USER="name"
 MYSQL_PASSWORD=""
 MYSQL_DB="hydro"
 MYSQL_ROOT_PASSWORD=""
+MYSQL_LOCAL_PORT=3307
+MYSQL_DOCKER_PORT=3306
 
-NODE_LOCAL_PORT=6868
+NODE_LOCAL_PORT=3000
 NODE_DOCKER_PORT=8080
 ```
 
@@ -47,12 +49,14 @@ Enter the password you set and run
 CREATE DATABASE MYSQL_DB
 ```
 
-replacing MYSQL_DB with the name you specified in your .env file. Now you should be able to spin down and up the containers and access the app at `http://localhost:NODE_DOCKER_PORT/graphql`.
+replacing MYSQL_DB with the name you specified in your .env file. Now you should be able to spin down and up the containers and access the app at `http://localhost:NODE_DOCKER_PORT/graphql`. It may also be required to grant privileges to the user used to access the database.
 
 ```
 docker-compose down
 docker-compose up -d
 ```
+
+Depending on where the app is running you may need to make the port range 3000 available to the public in order to reach the API from the internet. 
 
 ### Resources for development
 

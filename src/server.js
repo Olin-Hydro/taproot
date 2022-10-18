@@ -17,9 +17,8 @@ app.use(
     graphiql: true,
   })
 );
-const server = app.listen(process.env.NODE_DOCKER_PORT);
-console.log("there")
 
+const server = app.listen(process.env.NODE_DOCKER_PORT);
 console.log(
   `Running a GraphQL API server at http://localhost:${process.env.NODE_DOCKER_PORT}/graphql`
 );
