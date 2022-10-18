@@ -4,17 +4,17 @@ Hydro API v2 using GraphQL. The original RESTful API written in Python can be fo
 
 ### Deploying with docker-compose
 
-Install docker and docker-compose. Create a .env file in the base dir with the following
+Install docker and docker-compose. Create a .env file in the base dir with the following (updating the passwords)
 
 ```
-MYSQL_HOST=
-MYSQL_USER=
-MYSQL_PASSWORD=
-MYSQL_DB=
-MYSQL_ROOT_PASSWORD=
+MYSQL_HOST="mysql"
+MYSQL_USER="name"
+MYSQL_PASSWORD=""
+MYSQL_DB="hydro"
+MYSQL_ROOT_PASSWORD=""
 
-NODE_LOCAL_PORT=
-NODE_DOCKER_PORT=
+NODE_LOCAL_PORT=6868
+NODE_DOCKER_PORT=8080
 ```
 
 Then run

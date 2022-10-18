@@ -8,9 +8,11 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
       MYSQL_DATABASE: $MYSQL_DB
+    ports:
+      - $MYSQL_LOCAL_PORT:$MYSQL_DOCKER_PORT
   app:
     image: node:16-alpine
-    command: sh -c "npm install && npm start"
+    command: sh -c "npm install --legacy-peer-deps && npm start"
     ports:
       - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
     working_dir: /src
@@ -22,6 +24,7 @@ services:
       MYSQL_USER: $MYSQL_USER
       MYSQL_PASSWORD: $MYSQL_PASSWORD
       MYSQL_DB: $MYSQL_DB
+      MYSQL_PORT: $MYSQL_DOCKER_PORT
     depends_on:
       - mysql
 volumes:
